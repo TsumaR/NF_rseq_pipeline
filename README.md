@@ -31,12 +31,11 @@ git clone https://github.com/TsumaR/NF_rseq_pipeline.git
 First, copy config file to the directory.
 
 ```
-cd $HOME/NF_seq_pipeline
+cd ./NF_seq_pipeline
 
 cp config_file/local.config ./
-cp config_file/run.config ./
 ```
-Second, edit the local.config file.
+Second, edit the `local.config` file.
 
 ### 5. Make directory
 
