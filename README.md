@@ -6,9 +6,12 @@
 - [Nextflow](https://www.nextflow.io/)
 
 ## Getting started
+
 ### 1. Installing Nextflow
+
 1. Make sure 8 or later is installed on your computer by using the command: `java -version`
 2. Enter the below commands in your terminal (The command creates a file nextflow in `~/bin`)
+
 ```
 mkdir -p ~/bin
 cd ~/bin
@@ -24,16 +27,25 @@ git clone https://github.com/TsumaR/NF_rseq_pipeline.git
 ```
 
 ### 4. Modifying config file 
-First, copy config file to the directory.
-```
-cd $HOME/RamDAQ_example
 
-cp config_file/local.config .
-cp config_file/run.config .
+First, copy config file to the directory.
+
+```
+cd $HOME/NF_seq_pipeline
+
+cp config_file/local.config ./
+cp config_file/run.config ./
 ```
 Second, edit the local.config file.
 
-### 5. Run the pipeline
+### 5. Make directory
+
+```
+mkdir log
+mkdir summary
+```
+
+### 6. Run the pipeline
 
 ```
 ~/bin/nextflow run nextflow/main.nf -c run.config -resume -with-report log.01.main.html
@@ -42,6 +54,12 @@ Second, edit the local.config file.
 ~/bin/nextflow run nextflow/qc_for_R.nf -c run.config -resume -with-report log.04.qc_for_R.html
 ~/bin/nextflow run nextflow/summary.nf -c run.config -resume -with-report log.05.summary.html
 ``` 
+
+or
+
+```
+qsub run..sh
+```
 
 ## Information 
 Version of packages 
