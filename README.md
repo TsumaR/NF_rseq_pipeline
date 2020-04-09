@@ -61,4 +61,17 @@ qsub run..sh
 ```
 
 ## Information 
-Version of packages 
+Version of packages
+
+2020/04/09，東大スパコンのデフォルトのJavaだと動かないエラー発生
+
+```
+#現在のバージョンを確認
+$ which java
+/usr/local/package/java/10_2018-03-20/bin/java
+
+#javaのバージョン8を読み込み
+$ module load java/8
+$ which java
+/usr/local/package/java/1.8.0_181/bin/java
+``` 
