@@ -31,7 +31,7 @@ qc_alignment_input = bam_dir
 
 process qc_alignment {
     tag{"${proj_id}"}
-    publishDir "output_${proj_id}/output_${proj_id}/08_qc", mode: 'copy', overwrite: true
+    publishDir "output_${proj_id}/${run_ids}/08_qc", mode: 'copy', overwrite: true
 
     container "tsumar/rseq_python:1.2"
 
@@ -53,7 +53,7 @@ process qc_alignment {
 
 process qc_distribution {
     tag{"${proj_id}"}
-    publishDir "output_${proj_id}/output_${proj_id}/08_qc", mode: 'copy', overwrite: true
+    publishDir "output_${proj_id}/${run_ids}/08_qc", mode: 'copy', overwrite: true
 
     container "tsumar/rseq_python:1.2"
 
@@ -75,7 +75,7 @@ process qc_distribution {
 
 process qc_insert_size {
     tag{"${proj_id}"}
-    publishDir "output_${proj_id}/output_${proj_id}/08_qc", mode: 'copy', overwrite: true
+    publishDir "output_${proj_id}/${run_ids}/08_qc", mode: 'copy', overwrite: true
 
     container "tsumar/rseq_python:1.2"
 
@@ -85,7 +85,7 @@ process qc_insert_size {
     path qc_insert_size from workflow.scriptFile.parent.parent + "/rnaseq-pipeline-4.0.2/qc-insert-size.py"
 
     output:
-    set sample_id into insert_output
+    val sample_id into insert_size_output
     file("*txt")
 
     script:
@@ -96,17 +96,17 @@ process qc_insert_size {
 
 Channel
     .fromPath("output_" + params.project_id + "/**/07_ex_isoform/", type: "dir")
-    .into{iso_dir}
+    .set{iso_dir}
 
 Channel
     .fromPath("output_" + params.project_id + "/**/05_bam2wig/", type: "dir")
-    .into{bw_dir}
+    .set{bw_dir}
 
 gtf_file = Channel
     .from(params.gtf_file)
     .map{ [it[0], file(it[1])] }
 
-iso_abundant_input = insert_output
+iso_abundant_input = gtf_file
     .combine(gtf_file)
     .combine(iso_dir)
     .combine(bw_dir)
@@ -114,13 +114,13 @@ iso_abundant_input = insert_output
 
 process qc_coverage {
     tag{"${proj_id}"}
-    publishDir "output_${proj_id}/output_${proj_id}/08_qc", mode: 'copy', overwrite: true
+    publishDir "output_${proj_id}/${run_ids}/08_qc", mode: 'copy', overwrite: true
 
     container "tsumar/rseq_python:1.3"
 
     input:
     val proj_id
-    set sample_id, gtf_name, file(gtf), iso_dir, bw_dir from iso_abundant_input
+    set run_ids, sample_id, gtf_name, file(gtf), iso_dir, bw_dir from iso_abundant_input
     path qc_coverage from workflow.scriptFile.parent.parent + "/rnaseq-pipeline-4.0.2/qc-coverage.py"
 
     output:
