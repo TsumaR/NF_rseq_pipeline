@@ -26,6 +26,7 @@ If you use shirokane, you add below sentense to `.bash_profile`
 
 ```
 export PATH=/usr/local/package/singularity/3.2.1/bin:$PATH
+export NXF_SINGULARITY_CACHEDIR=$HOME/.singularity
 ```
 
 ### 3. Clone this repository
