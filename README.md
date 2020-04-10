@@ -31,7 +31,7 @@ export PATH=/usr/local/package/singularity/3.2.1/bin:$PATH
 ### 3. Clone this repository
 
 ```
-cd
+cd  "WORKING_DIR"
 git clone https://github.com/TsumaR/NF_rseq_pipeline.git
 ```
 
