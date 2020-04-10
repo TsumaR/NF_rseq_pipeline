@@ -19,6 +19,15 @@ wget -qO- https://get.nextflow.io | bash
 ``` 
 3. Run the classic Hello world by entering the following command: `~/bin/nextflow run hello` 
 
+### 2. singularity
+
+You have to open path of singularity
+If you use shirokane, you add below sentense to `.bash_profile`
+
+```
+export PATH=/usr/local/package/singularity/3.2.1/bin:$PATH
+```
+
 ### 3. Clone this repository
 
 ```
