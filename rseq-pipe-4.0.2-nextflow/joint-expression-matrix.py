@@ -38,9 +38,11 @@ def main():
     genes = sorted(gene.values(), key=lambda v: v.gene_id)
 
     data = []
-    for s in smpl.Sample_ID:
+    for i,s in enumerate(smpl.Sample_ID):
         print(s, file=sys.stderr)
         spath = '%s/%s' % (args.fin, f"{s}_R1_abund.tab")
+        spath = '%s/%s/06_stringtie/%s' % (args.fin, smpl.iat[i,1], f"{s}_R1_abund.tab")
+
         dat = pd.read_csv(spath, index_col='Gene ID', sep='\t')
         grp = dat.groupby(level=0)
         summary = grp.sum()

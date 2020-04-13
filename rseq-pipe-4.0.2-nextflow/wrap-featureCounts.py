@@ -35,7 +35,7 @@ def main():
     fsum = fout + '.summary'
 
     # exec featureCounts
-    bams = list(map(lambda s: '%s/%s' % (args.fin, f"{s}_R1_trim.sort.bam"), smpl.Sample_ID))
+    bams = list(map(lambda seq, s: '%s/%s/04_tagging/%s' % (args.fin, f"{seq}", f"{s}_R1_trim.sort.bam"), smpl.Sequence_ID, smpl.Sample_ID))
     cmds = ['featureCounts',
             '-o %s' % fout,
             '-a %s' % args.gtf,
