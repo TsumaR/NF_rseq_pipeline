@@ -20,7 +20,7 @@ def mk_table(qc, sid, read=None):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('smpl', help='sample information file')
-    ap.add_argument('qc_dir', help='qc directory')
+    ap.add_argument('out_dir', help='output directory')
     ap.add_argument('-pe', dest='fpe', action='store', help='type of input file', default=None)
     ap.add_argument('-o', '--output', dest='fout', action='store',
                     metavar='FILE', default=None,
@@ -35,14 +35,14 @@ def main():
     LR = args.fpe
 
     data = None
-    for sid in smpl.Sample_ID:
+    for i,sid in enumerate(smpl.Sample_ID):
 
         tb = None
         if LR != "LR":
-            tb = mk_table(os.path.join(args.qc_dir, f'{sid}_{p_type}.txt'), sid)
+            tb = mk_table(os.path.join(args.out_dir,  f'{smpl.iat[i,1]}', '08_qc', f'{sid}_{p_type}.txt'), sid)
         else:
-            tb1 = mk_table(os.path.join(args.qc_dir, f'{sid}_R1_{p_type}.txt'), sid, 'read1')
-            tb2 = mk_table(os.path.join(args.qc_dir, f'{sid}_R2_{p_type}.txt'), sid, 'read2')
+            tb1 = mk_table(os.path.join(args.out_dir, f'{smpl.iat[i,1]}', '08_qc', f'{sid}_R1_{p_type}.txt'), sid, 'read1')
+            tb2 = mk_table(os.path.join(args.out_dir, f'{smpl.iat[i,1]}', '08_qc', f'{sid}_R2_{p_type}.txt'), sid, 'read2')
             tb = pd.concat([tb1, tb2])
             
         if data is None:

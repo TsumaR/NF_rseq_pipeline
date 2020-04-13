@@ -1,0 +1,47 @@
+4月-13 16:28:56.428 [main] DEBUG nextflow.cli.Launcher - $> nextflow run nextflow/summary.nf -c run.config -resume -with-report log.05.summary.html
+4月-13 16:28:56.494 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 19.10.0
+4月-13 16:28:56.590 [main] DEBUG nextflow.scm.AssetManager - Listing projects in folder: /home/myne812/.nextflow/assets
+4月-13 16:28:56.600 [main] INFO  nextflow.cli.CmdRun - Pulling nextflow-io/nextflow ...
+4月-13 16:28:56.601 [main] DEBUG nextflow.scm.RepositoryProvider - Request [credentials -:-] -> https://api.github.com/repos/nextflow-io/nextflow/contents/summary.nf
+4月-13 16:28:57.134 [main] DEBUG nextflow.scm.RepositoryProvider - Response status: 404 -- {"message":"Not Found","documentation_url":"https://developer.github.com/v3/repos/contents/#get-contents"}
+4月-13 16:28:57.138 [main] DEBUG nextflow.cli.Launcher - Operation aborted
+nextflow.exception.AbortOperationException: Remote resource not found: https://api.github.com/repos/nextflow-io/nextflow/contents/summary.nf
+	at nextflow.scm.RepositoryProvider.checkResponse(RepositoryProvider.groovy:158)
+	at nextflow.scm.RepositoryProvider.invoke(RepositoryProvider.groovy:106)
+	at nextflow.scm.RepositoryProvider.memoizedMethodPriv$invokeAndParseResponseString(RepositoryProvider.groovy:173)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:101)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:323)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1217)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1041)
+	at org.codehaus.groovy.runtime.InvokerHelper.invokePogoMethod(InvokerHelper.java:1011)
+	at org.codehaus.groovy.runtime.InvokerHelper.invokeMethod(InvokerHelper.java:994)
+	at org.codehaus.groovy.runtime.InvokerHelper.invokeMethodSafe(InvokerHelper.java:97)
+	at nextflow.scm.RepositoryProvider$_closure1.doCall(RepositoryProvider.groovy)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+	at org.codehaus.groovy.reflection.CachedMethod.invoke(CachedMethod.java:101)
+	at groovy.lang.MetaMethod.doMethodInvoke(MetaMethod.java:323)
+	at org.codehaus.groovy.runtime.metaclass.ClosureMetaClass.invokeMethod(ClosureMetaClass.java:263)
+	at groovy.lang.MetaClassImpl.invokeMethod(MetaClassImpl.java:1041)
+	at groovy.lang.Closure.call(Closure.java:405)
+	at org.codehaus.groovy.runtime.memoize.Memoize$MemoizeFunction$1.provide(Memoize.java:139)
+	at org.codehaus.groovy.runtime.memoize.ConcurrentCommonCache.getAndPut(ConcurrentCommonCache.java:147)
+	at org.codehaus.groovy.runtime.memoize.ConcurrentCommonCache.getAndPut(ConcurrentCommonCache.java:123)
+	at org.codehaus.groovy.runtime.memoize.Memoize$MemoizeFunction.call(Memoize.java:136)
+	at groovy.lang.Closure.call(Closure.java:421)
+	at nextflow.scm.RepositoryProvider.invokeAndParseResponse(RepositoryProvider.groovy)
+	at nextflow.scm.GithubRepositoryProvider.readBytes(GithubRepositoryProvider.groovy:73)
+	at nextflow.scm.RepositoryProvider.validateFor(RepositoryProvider.groovy:201)
+	at nextflow.scm.AssetManager.checkValidRemoteRepo(AssetManager.groovy:361)
+	at nextflow.scm.AssetManager.download(AssetManager.groovy:569)
+	at nextflow.scm.AssetManager.download(AssetManager.groovy)
+	at nextflow.cli.CmdRun.getScriptFile(CmdRun.groovy:321)
+	at nextflow.cli.CmdRun.run(CmdRun.groovy:229)
+	at nextflow.cli.Launcher.run(Launcher.groovy:457)
+	at nextflow.cli.Launcher.main(Launcher.groovy:639)
