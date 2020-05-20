@@ -1,5 +1,6 @@
 # NF_rseq_pipeline 
-有川さん作成のRNA-seq pipelineを，ワークフロー言語であるNextflowに書き換えたもの。全てdocker環境で実施するようにしてあるので，Nextflowとdocker(singularity)さえあれば他の環境構築は必要ない。 
+Nextflowで記載したRNA-seq pipeline。解析に必要なカウントデータなどのテーブルデータを複数作成する。
+全てdocker環境で実施するようにしてあるので，Nextflowとdocker(singularity)さえあれば他の環境構築は必要ない。 
 東大スパコンとOILのスパコンにはsingularityが標準で存在するので実質必要なのはNextflowだけである。
 
 ## Requirements
