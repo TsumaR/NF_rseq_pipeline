@@ -12,8 +12,10 @@ Nextflowで記載したRNA-seq pipeline。解析に必要なカウントデー�
 
 1. Make sure 8 or later is installed on your computer by using the command: `java -version`
 2. Enter the below commands in your terminal (The command creates a file nextflow in `~/bin`)
+この作業は計算機ごとに一度行えば今後行う必要はありません。
 
 ```
+module load java/8
 mkdir -p ~/bin
 cd ~/bin
 wget -qO- https://get.nextflow.io | bash
@@ -24,6 +26,7 @@ wget -qO- https://get.nextflow.io | bash
 
 You have to open path of singularity
 If you use shirokane, you add below sentense to `.bash_profile`
+この作業は計算機ごとに一度行えば今後行う必要はありません。
 
 ```
 export PATH=/usr/local/package/singularity/3.2.1/bin:$PATH
@@ -32,6 +35,8 @@ export NXF_SINGULARITY_CACHEDIR=$HOME/.singularity
 
 ### 3. Clone this repository
 
+`WORKING_DIR`には自分の解析したい実験名のディレクトリを指定してください。
+
 ```
 cd  "WORKING_DIR"
 git clone https://github.com/TsumaR/NF_rseq_pipeline.git
@@ -39,23 +44,18 @@ git clone https://github.com/TsumaR/NF_rseq_pipeline.git
 
 ### 4. Modifying config file 
 
-First, copy config file to the directory.
+You can edit `local.config` file to change the name of the analysis result.
+これにより、project nameなどを変更することができますが、必須の作業ではありません。
 
 ```
-cd ./NF_seq_pipeline
-
-cp config_file/local.config ./
-```
-Second, edit the `local.config` file.
-
-### 5. Make directory
-
-```
-mkdir log
-mkdir summary
+vim local.config
 ```
 
-### 6. Run the pipeline
+### 5. Preparing sample file
+
+### 6. Storing FASTQ file
+
+### 5. Run the pipeline
 
 ```
 ~/bin/nextflow run nextflow/main.nf -c run.config -resume -with-report log.01.main.html
