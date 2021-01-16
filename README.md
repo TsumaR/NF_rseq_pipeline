@@ -12,8 +12,10 @@ Nextflowで記載したRNA-seq pipeline。解析に必要なカウントデー�
 
 1. Make sure 8 or later is installed on your computer by using the command: `java -version`
 2. Enter the below commands in your terminal (The command creates a file nextflow in `~/bin`)
+この作業は計算機ごとに一度行えば今後行う必要はありません。
 
 ```
+module load java/8
 mkdir -p ~/bin
 cd ~/bin
 wget -qO- https://get.nextflow.io | bash
@@ -24,6 +26,7 @@ wget -qO- https://get.nextflow.io | bash
 
 You have to open path of singularity
 If you use shirokane, you add below sentense to `.bash_profile`
+この作業は計算機ごとに一度行えば今後行う必要はありません。
 
 ```
 export PATH=/usr/local/package/singularity/3.2.1/bin:$PATH
@@ -32,6 +35,8 @@ export NXF_SINGULARITY_CACHEDIR=$HOME/.singularity
 
 ### 3. Clone this repository
 
+`WORKING_DIR`には自分の解析したい実験名のディレクトリを指定してください。
+
 ```
 cd  "WORKING_DIR"
 git clone https://github.com/TsumaR/NF_rseq_pipeline.git
@@ -39,23 +44,49 @@ git clone https://github.com/TsumaR/NF_rseq_pipeline.git
 
 ### 4. Modifying config file 
 
-First, copy config file to the directory.
+You can edit `local.config` file to change the name of the analysis result.
+これにより、project nameなどを変更することができますが、必須の作業ではありません。
 
 ```
-cd ./NF_seq_pipeline
-
-cp config_file/local.config ./
-```
-Second, edit the `local.config` file.
-
-### 5. Make directory
-
-```
-mkdir log
-mkdir summary
+vim local.config
 ```
 
-### 6. Run the pipeline
+### 5. Preparing Fastq files
+
+最初に、scpコマンドを利用して自分のPC上のFastqファイルを計算機に送ってください
+この際、fastqファイルは計算機上で`fastq`ディレクトリに保存するようにしてください。
+fastqファイルは`sample名[自由な文字列]_R1_[自由な文字列].fastq.gz`のようにしてください。
+
+```
+mkdir fastq
+scp [自分のPC上のfastqファイル] ユーザー名@IPアドレス:[実行ディレクトリ]/fastq
+```
+
+### 6. Making sample.txt file
+
+サンプルファイルを作成します。
+まず、解析に利用したいサンプル名を縦に並べた下のような`ifiles.txt`というファイルを作成してください。
+この際、sample名はfastqファイルの先頭部分と等しくなるように設定してください。
+
+このファイルはローカルPCで作成してから`scp`コマンドで送付してもいいですし、`vim`コマンドでスパコン上に作成しても構いません。
+
+```
+sample1
+sample2
+sample3
+sample4
+```
+
+このsample名ファイルを利用して、inputとなる`sample.txt`を作成します。
+下記のコマンドを実施してください
+
+```
+qsub pre_run.sh
+```
+
+### 5. Run the pipeline
+
+nextflowを実装します。
 
 ```
 ~/bin/nextflow run nextflow/main.nf -c run.config -resume -with-report log.01.main.html
@@ -65,24 +96,5 @@ mkdir summary
 ~/bin/nextflow run nextflow/summary.nf -c run.config -resume -with-report log.05.summary.html
 ``` 
 
-or
+現在1行の実施で完了するように改良中です。アップデートをお待ちください。
 
-```
-qsub run..sh
-```
-
-## Information 
-Version of packages
-
-2020/04/09，東大スパコンのデフォルトのJavaだと動かないエラー発生
-
-```
-#現在のバージョンを確認
-$ which java
-/usr/local/package/java/10_2018-03-20/bin/java
-
-#javaのバージョン8を読み込み
-$ module load java/8
-$ which java
-/usr/local/package/java/1.8.0_181/bin/java
-``` 
