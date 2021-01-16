@@ -51,11 +51,42 @@ You can edit `local.config` file to change the name of the analysis result.
 vim local.config
 ```
 
-### 5. Preparing sample file
+### 5. Preparing Fastq files
 
-### 6. Storing FASTQ file
+最初に、scpコマンドを利用して自分のPC上のFastqファイルを計算機に送ってください
+この際、fastqファイルは計算機上で`fastq`ディレクトリに保存するようにしてください。
+fastqファイルは`sample名[自由な文字列]_R1_[自由な文字列].fastq.gz`のようにしてください。
+
+```
+mkdir fastq
+scp [自分のPC上のfastqファイル] ユーザー名@IPアドレス:[実行ディレクトリ]/fastq
+```
+
+### 6. Making sample.txt file
+
+サンプルファイルを作成します。
+まず、解析に利用したいサンプル名を縦に並べた下のような`ifiles.txt`というファイルを作成してください。
+この際、sample名はfastqファイルの先頭部分と等しくなるように設定してください。
+
+このファイルはローカルPCで作成してから`scp`コマンドで送付してもいいですし、`vim`コマンドでスパコン上に作成しても構いません。
+
+```
+sample1
+sample2
+sample3
+sample4
+```
+
+このsample名ファイルを利用して、inputとなる`sample.txt`を作成します。
+下記のコマンドを実施してください
+
+```
+qsub pre_run.sh
+```
 
 ### 5. Run the pipeline
+
+nextflowを実装します。
 
 ```
 ~/bin/nextflow run nextflow/main.nf -c run.config -resume -with-report log.01.main.html
@@ -65,24 +96,5 @@ vim local.config
 ~/bin/nextflow run nextflow/summary.nf -c run.config -resume -with-report log.05.summary.html
 ``` 
 
-or
+現在1行の実施で完了するように改良中です。アップデートをお待ちください。
 
-```
-qsub run..sh
-```
-
-## Information 
-Version of packages
-
-2020/04/09，東大スパコンのデフォルトのJavaだと動かないエラー発生
-
-```
-#現在のバージョンを確認
-$ which java
-/usr/local/package/java/10_2018-03-20/bin/java
-
-#javaのバージョン8を読み込み
-$ module load java/8
-$ which java
-/usr/local/package/java/1.8.0_181/bin/java
-``` 
