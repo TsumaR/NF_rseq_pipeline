@@ -12,11 +12,10 @@ PWD=`pwd`
 fq_dir=./fastq
 smpl_lst=(`cat ${PWD}/ifiles.txt|xargs`)
 
-echo "Sample_ID Sequence_ID Fastq1  Fastq2" > sample.txt
+echo -e "Sample_ID\tSequence_ID\tFastq1\tFastq2" > sample.txt
 for s_name in ${smpl_lst[@]}; do
   fqs=(`find ${fq_dir} -name "${s_name}*"`)
   R1=${fqs[0]}
   R2=${fqs[1]}
-  echo $s_name  "NF_rseq_pipeline"  $R1 $R2 >> sample.txt
+  echo -e "$s_name\t"NF_rseq_pipeline"\t$R1\t$R2" >> sample.txt
 done
-
