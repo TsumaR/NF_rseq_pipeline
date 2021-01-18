@@ -51,6 +51,8 @@ You can edit `local.config` file to change the name of the analysis result.
 vim local.config
 ```
 
+OILスパコンや、生物種の変更をoptionで設定できるようになるまではここの設定ファイルで操作してください。
+
 ### 5. Preparing Fastq files
 
 最初に、scpコマンドを利用して自分のPC上のFastqファイルを計算機に送ってください
