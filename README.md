@@ -15,7 +15,6 @@ Nextflowで記載したRNA-seq pipeline。解析に必要なカウントデー�
 この作業は計算機ごとに一度行えば今後行う必要はありません。
 
 ```
-module load java/8
 mkdir -p ~/bin
 cd ~/bin
 wget -qO- https://get.nextflow.io | bash
@@ -91,6 +90,7 @@ qsub pre_run.sh
 nextflowを実装します。
 
 ```
+module load java/8
 ~/bin/nextflow run nextflow/main.nf -c run.config -resume -with-report log.01.main.html
 ~/bin/nextflow run nextflow/hisat2.nf -c run.config -resume -with-report log.02.hisat2.html
 ~/bin/nextflow run nextflow/stringtie.nf -c run.config -resume -with-report log.03.stringtie.html
