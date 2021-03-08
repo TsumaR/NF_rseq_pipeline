@@ -43,14 +43,32 @@ git clone https://github.com/TsumaR/NF_rseq_pipeline.git
 
 ### 4. Modifying config file 
 
-You can edit `local.config` file to change the name of the analysis result.
-これにより、project nameなどを変更することができますが、必須の作業ではありません。
+デフォルトではマウスに対するパイプラインになっています。
+もしヒトサンプルに対してパイプラインを実行したい場合は`run.config`ファイルを変更する必要があります。
 
 ```
-vim local.config
+vim run.config
 ```
 
-OILスパコンや、生物種の変更をoptionで設定できるようになるまではここの設定ファイルで操作してください。
+で`run.config`ファイルの編集画面に入り、
+
+```
+process.executor = 'uge'
+process.memory = '24G'
+
+includeConfig "./config_file/mm.config"
+includeConfig "./config_file/pipeline.config"
+```
+を
+```
+process.executor = 'uge'
+process.memory = '24G'
+
+includeConfig "./config_file/hs.config"
+includeConfig "./config_file/pipeline.config"
+```
+に変更してください。
+mmの部分をhsに変更するだけです。
 
 ### 5. Preparing Fastq files
 
@@ -88,9 +106,11 @@ qsub pre_run.sh
 ### 5. Run the pipeline
 
 nextflowを実装します。
+`module load java/8`を先に実行しないとうまくいきません。
 
 ```
 module load java/8
+
 ~/bin/nextflow run nextflow/main.nf -c run.config -resume -with-report log.01.main.html
 ~/bin/nextflow run nextflow/hisat2.nf -c run.config -resume -with-report log.02.hisat2.html
 ~/bin/nextflow run nextflow/stringtie.nf -c run.config -resume -with-report log.03.stringtie.html
