@@ -36,7 +36,7 @@ process run_stringtie {
  
     tag{"${proj_id}"}
     publishDir "output_${proj_id}/${run_ids}/06_stringtie", mode: 'copy', overwrite: true
-    container "quay.io/biocontainers/stringtie:2.0--hc900ff6_0"
+    container "quay.io/biocontainers/stringtie:2.1.7--h978d192_0"
 
     input:
     val proj_id
