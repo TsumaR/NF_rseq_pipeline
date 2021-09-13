@@ -116,6 +116,7 @@ module load java/8
 ~/bin/nextflow run nextflow/stringtie.nf -c run.config -resume -with-report log.03.stringtie.html
 ~/bin/nextflow run nextflow/qc_for_R.nf -c run.config -resume -with-report log.04.qc_for_R.html
 ~/bin/nextflow run nextflow/summary.nf -c run.config -resume -with-report log.05.summary.html
+
 ``` 
 
 現在1行の実施で完了するように改良中です。アップデートをお待ちください。
