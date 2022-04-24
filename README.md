@@ -109,7 +109,6 @@ nextflowを実装します。
 `module load java/8`を先に実行しないとうまくいきません。
 
 ```
-
 for ((i=0; i<1; i++)); do
   module load java/8
   ~/bin/nextflow run nextflow/main.nf -c run.config -profile uge -resume -with-report log.01.main.html;
