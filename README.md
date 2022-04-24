@@ -112,11 +112,11 @@ nextflowを実装します。
 
 for ((i=0; i<1; i++)); do
   module load java/8
-  ~/bin/nextflow run nextflow/main.nf -c run.config -resume -with-report log.01.main.html;
-  ~/bin/nextflow run nextflow/hisat2.nf -c run.config -resume -with-report log.02.hisat2.html;
-  ~/bin/nextflow run nextflow/stringtie.nf -c run.config -resume -with-report log.03.stringtie.html;
-  ~/bin/nextflow run nextflow/qc_for_R.nf -c run.config -resume -with-report log.04.qc_for_R.html;
-  ~/bin/nextflow run nextflow/summary.nf -c run.config -resume -with-report log.05.summary.html;
+  ~/bin/nextflow run nextflow/main.nf -c run.config -profile uge -resume -with-report log.01.main.html;
+  ~/bin/nextflow run nextflow/hisat2.nf -c run.config -profile uge -resume -with-report log.02.hisat2.html;
+  ~/bin/nextflow run nextflow/stringtie.nf -c run.config -profile uge -resume -with-report log.03.stringtie.html;
+  ~/bin/nextflow run nextflow/qc_for_R.nf -c run.config -profile uge -resume -with-report log.04.qc_for_R.html;
+  ~/bin/nextflow run nextflow/summary.nf -c run.config -profile uge -resume -with-report log.05.summary.html;
 done
 
 ``` 
