@@ -1,4 +1,4 @@
-#!/home/myne812/bin/ nextflow
+#!/usr/bin/env nextflow
 
 proj_id = params.project_id
 fastq_filelist = params.fastq_filelist
