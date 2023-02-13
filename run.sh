@@ -2,15 +2,18 @@
 #$ -cwd
 #$ -e log
 #$ -o log
-#$ -pe def_slot 4
-#$ -l s_vmem=8G,mem_req=8G
+#$ -pe def_slot 1
+#$ -l s_vmem=128G,mem_req=128G
 
-module load java/8
 source ~/.bash_profile
 
+export JAVA_TOOL_OPTIONS="-XX:+UseSerialGC -Xmx100g"
+export TOWER_ACCESS_TOKEN=YOUR_ACCESS_TOKEN
+export TOWER_ACCESS_TOKEN=eyJ0aWQiOiA2NzIwfS5mMjI4OGQ5MWEwODE1NDM5ZTk1ZTQzYTdhNTVlOWMwNGJlZmNjMjMy
+export NXF_VER=22.04.3
 
-~/bin/nextflow run nextflow/main.nf -c run.config -resume -with-report log.01.main.html
-~/bin/nextflow run nextflow/hisat2.nf -c run.config -resume -with-report log.02.hisat2.html
-~/bin/nextflow run nextflow/stringtie.nf -c run.config -resume -with-report log.03.stringtie.html
-~/bin/nextflow run nextflow/qc_for_R.nf -c run.config -resume -with-report log.04.qc_for_R.html
-~/bin/nextflow run nextflow/summary.nf -c run.config -resume -with-report log.05.summary.html
+nextflow run nextflow/main.nf -c run.config -profile main -resume -with-report -with-timeline -with-tower
+nextflow run nextflow/hisat2.nf -c run.config -profile main -resume -with-report -with-timeline -with-tower
+nextflow run nextflow/stringtie.nf -c run.config -profile main -resume -with-report -with-timeline -with-tower
+nextflow run nextflow/qc_for_R.nf -c run.config -profile main -resume -with-report -with-timeline -with-tower
+nextflow run nextflow/summary.nf -c run.config -profile main -resume -with-report -with-timeline -with-tower
