@@ -105,23 +105,26 @@ qsub pre_run.sh
 
 ### 5. Run the pipeline
 
-nextflowを実装します。
-`module load java/8`を先に実行しないとうまくいきません。
-
 ```
-for ((i=0; i<1; i++)); do
-  module load java/8
-  ~/bin/nextflow run nextflow/main.nf -c run.config -profile uge -resume -with-report log.01.main.html;
-  ~/bin/nextflow run nextflow/hisat2.nf -c run.config -profile uge -resume -with-report log.02.hisat2.html;
-  ~/bin/nextflow run nextflow/stringtie.nf -c run.config -profile uge -resume -with-report log.03.stringtie.html;
-  ~/bin/nextflow run nextflow/qc_for_R.nf -c run.config -profile uge -resume -with-report log.04.qc_for_R.html;
-  ~/bin/nextflow run nextflow/summary.nf -c run.config -profile uge -resume -with-report log.05.summary.html;
-done
-
-``` 
+qsub run.sh
+```
 
 現在1行の実施で完了するように改良中です。アップデートをお待ちください。
 
 ### 6. Output files
 
 結果はsummaryディレクトリに作成されます。
+
+
+** 注意！！！ **
+nextflow towerのアカウントを作って入力することがおすすめ。
+作らないなら`run.sh`内の
+```
+nextflow run nextflow/main.nf -c run.config -profile main -resume -with-report -with-timeline -with-tower
+nextflow run nextflow/hisat2.nf -c run.config -profile main -resume -with-report -with-timeline -with-tower
+nextflow run nextflow/stringtie.nf -c run.config -profile main -resume -with-report -with-timeline -with-tower
+nextflow run nextflow/qc_for_R.nf -c run.config -profile main -resume -with-report -with-timeline -with-tower
+nextflow run nextflow/summary.nf -c run.config -profile main -resume -with-report -with-timeline -with-tower
+```
+これらの全ての`-with-tower`を消去する。
+Nextflow towerを加えておくと、ジョブの実行状況、エラーなどをリアルタイムで追えるので基本的にはアカウントを作成した上で追加することを推奨している。
