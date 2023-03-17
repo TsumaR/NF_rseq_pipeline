@@ -4,6 +4,7 @@
 #$ -o log
 #$ -pe def_slot 1
 #$ -l s_vmem=128G,mem_req=128G
+#$ -M s6z5s8s8h9i5o7c4@htl-org.slack.com
 
 source ~/.bash_profile
 
@@ -12,8 +13,11 @@ export TOWER_ACCESS_TOKEN=YOUR_ACCESS_TOKEN
 export TOWER_ACCESS_TOKEN=eyJ0aWQiOiA2NzIwfS5mMjI4OGQ5MWEwODE1NDM5ZTk1ZTQzYTdhNTVlOWMwNGJlZmNjMjMy
 export NXF_VER=22.04.3
 
-nextflow run nextflow/main.nf -c run.config -profile main -resume -with-report -with-timeline -with-tower
-nextflow run nextflow/hisat2.nf -c run.config -profile main -resume -with-report -with-timeline -with-tower
-nextflow run nextflow/stringtie.nf -c run.config -profile main -resume -with-report -with-timeline -with-tower
-nextflow run nextflow/qc_for_R.nf -c run.config -profile main -resume -with-report -with-timeline -with-tower
-nextflow run nextflow/summary.nf -c run.config -profile main -resume -with-report -with-timeline -with-tower
+# nextflow run main_v2.nf -profile main -resume -with-report -with-timeline -with-tower -with-dag flowdiagram.mmd
+
+# create smpl.txt
+echo "Sample_ID" > ./sample.txt
+ls fastq/*R1* | sed -e "s/_R1.*//g" | sed -e "s/fastq\///g" >> ./sample.txt
+
+# run
+nextflow run pipeline.nf -profile pipeline -resume -with-report -with-timeline -with-tower -with-dag flowdiagram.mmd
